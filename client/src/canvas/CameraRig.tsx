@@ -32,6 +32,8 @@ const CameraRig = ({ children }: { children: React.ReactNode }) => {
 
     // set the model rotation
     easing.dampE(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       group.current.rotation,
       [state.pointer.y / 10, -state.pointer.x / 5, 0],
       0.25,
