@@ -29,7 +29,7 @@ const Shirt = () => {
         material-roughness={1}
         dispose={null}
       >
-        {state.isFullTexture && (
+        {snap.isFullTexture && (
           <Decal
             position={[0, 0, 0]}
             rotation={[0, 0, 0]}
@@ -37,7 +37,7 @@ const Shirt = () => {
             map={fullTexture}
           />
         )}
-        {state.isLogoTexture && (
+        {snap.isLogoTexture && (
           <Decal
             position={[0, 0.04, 0.15]}
             rotation={[0, 0, 0]}
