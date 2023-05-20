@@ -6,7 +6,7 @@ import { useSnapshot } from 'valtio';
 import state from '../store';
 
 const CameraRig = ({ children }: { children: React.ReactNode }) => {
-  const group = useRef();
+  const group = useRef(null);
   const snap = useSnapshot(state);
 
   useFrame((state, delta) => {
