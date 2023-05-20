@@ -1,6 +1,13 @@
-import { ai, fileIcon, logoShirt, stylishShirt,swatch } from '../assets';
+import { ai, fileIcon, logoShirt, stylishShirt, swatch } from '../assets';
 
-export const EditorTabs = [
+export type ActiveEditorTab = 'colorpicker' | 'filepicker' | 'aipicker' | '';
+
+export interface EditorTab {
+  name: ActiveEditorTab;
+  icon: string;
+}
+
+export const EditorTabs: EditorTab[] = [
   {
     name: 'colorpicker',
     icon: swatch,
