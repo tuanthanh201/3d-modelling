@@ -2,6 +2,19 @@ import { ai, fileIcon, logoShirt, stylishShirt, swatch } from '../assets';
 
 export type ActiveEditorTab = 'colorpicker' | 'filepicker' | 'aipicker' | '';
 
+export type DecalType = 'logo' | 'full';
+export type DecalFilterTab = 'logoShirt' | 'stylishShirt';
+
+interface Logo {
+  stateProperty: 'logoDecal';
+  filterTab: 'logoShirt';
+}
+
+interface Full {
+  stateProperty: 'fullDecal';
+  filterTab: 'stylishShirt';
+}
+
 export interface EditorTab {
   name: ActiveEditorTab;
   icon: string;
@@ -22,7 +35,12 @@ export const EditorTabs: EditorTab[] = [
   },
 ];
 
-export const FilterTabs = [
+export interface FilterTab {
+  name: DecalFilterTab;
+  icon: string;
+}
+
+export const FilterTabs: FilterTab[] = [
   {
     name: 'logoShirt',
     icon: logoShirt,
@@ -33,7 +51,10 @@ export const FilterTabs = [
   },
 ];
 
-export const DecalTypes = {
+export const DecalTypes: {
+  logo: Logo;
+  full: Full;
+} = {
   logo: {
     stateProperty: 'logoDecal',
     filterTab: 'logoShirt',

@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 
-import { download } from '../assets';
 import {
   AiPicker,
   ColorPicker,
@@ -10,21 +9,22 @@ import {
   FilePicker,
   Tab,
 } from '../components';
-import config from '../config/config';
 import {
   ActiveEditorTab,
+  DecalFilterTab,
+  DecalType,
   DecalTypes,
   EditorTabs,
   FilterTabs,
 } from '../config/constants';
-import { downloadCanvasToImage, reader } from '../config/helpers';
+import { reader } from '../config/helpers';
 import { fadeAnimation, slideAnimation } from '../config/motion';
 import state from '../store';
 
 const Customizer = () => {
   const snap = useSnapshot(state);
 
-  const [file, setFile] = useState('');
+  const [file, setFile] = useState();
 
   const [prompt, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
@@ -40,12 +40,50 @@ const Customizer = () => {
     case 'colorpicker':
       return <ColorPicker />;
     case 'filepicker':
-      return <FilePicker />;
+      return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
     case 'aipicker':
       return <AiPicker />;
     default:
       return null;
     }
+  };
+
+  const handleActiveFilterTab = (tab: DecalFilterTab) => {
+    console.log(tab);
+    switch (tab) {
+    case 'logoShirt':
+      state.isLogoTexture = !activeFilterTab[tab];
+      break;
+    case 'stylishShirt':
+      state.isFullTexture = !activeFilterTab[tab];
+      break;
+    default:
+      state.isLogoTexture = true;
+      state.isFullTexture = false;
+    }
+    console.log(state);
+
+    setActiveFilterTab((prev) => ({
+      ...prev,
+      [tab]: !prev[tab],
+    }));
+  };
+
+  const handleDecals = (type: DecalType, result: string) => {
+    const decalType = DecalTypes[type];
+
+    state[decalType.stateProperty] = result;
+
+    if (!activeFilterTab[decalType.filterTab]) {
+      handleActiveFilterTab(decalType.filterTab);
+    }
+  };
+
+  const readFile = (type: DecalType) => {
+    reader(file!).then((result) => {
+      handleDecals(type, result as string);
+      setActiveEditorTab('');
+    });
   };
 
   return (
@@ -92,9 +130,9 @@ const Customizer = () => {
               <Tab
                 key={tab.name}
                 isFilterTab
-                isActiveTab=""
+                isActiveTab={activeFilterTab[tab.name]}
                 tab={tab}
-                handleClick={() => {}}
+                handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
           </motion.div>

@@ -11,7 +11,7 @@ interface TabProps {
   tab: TabInterface;
   handleClick: () => void;
   isFilterTab?: boolean;
-  isActiveTab?: string;
+  isActiveTab?: boolean;
 }
 
 const Tab = ({ tab, isFilterTab, isActiveTab, handleClick }: TabProps) => {
