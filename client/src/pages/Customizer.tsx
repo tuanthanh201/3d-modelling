@@ -64,7 +64,7 @@ const Customizer = () => {
 
     try {
       setGeneratingImg(true);
-      const res = await fetch('http://localhost:8080/api/v1/dalle', {
+      const res = await fetch('https://3d-shirt-modelling.onrender.com/api/v1/dalle', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
