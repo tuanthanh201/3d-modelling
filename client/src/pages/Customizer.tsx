@@ -61,7 +61,17 @@ const Customizer = () => {
     }
 
     try {
-      // TODO:
+      setGeneratingImg(true);
+      const res = await fetch('http://localhost:8080/api/v1/dalle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt }),
+      });
+      if (!res.ok) throw new Error(res.statusText);
+      const data = await res.json();
+      handleDecals(type, `data:image/png;base64,${data.image}`);
     } catch (error) {
       alert(error);
     } finally {
@@ -71,7 +81,6 @@ const Customizer = () => {
   };
 
   const handleActiveFilterTab = (tab: DecalFilterTab) => {
-    console.log(tab);
     switch (tab) {
     case 'logoShirt':
       state.isLogoTexture = !activeFilterTab[tab];
