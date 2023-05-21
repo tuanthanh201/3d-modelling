@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 
+import { download } from '../assets';
 import {
   AiPicker,
   ColorPicker,
@@ -18,6 +19,7 @@ import {
   FilterTabs,
 } from '../config/constants';
 import { reader } from '../config/helpers';
+import { downloadCanvasToImage } from '../config/helpers';
 import { fadeAnimation, slideAnimation } from '../config/motion';
 import state from '../store';
 
@@ -165,6 +167,14 @@ const Customizer = () => {
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
+            <Tab
+              key="download"
+              tab={{
+                name: 'download',
+                icon: download,
+              }}
+              handleClick={() => downloadCanvasToImage()}
+            />
           </motion.div>
         </>
       )}
