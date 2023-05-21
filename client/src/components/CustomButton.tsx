@@ -4,10 +4,11 @@ import { getContrastingColor } from '../config/helpers';
 import state from '../store';
 
 interface CustomButtonProps {
-  type: string;
+  type: 'outline' | 'filled';
   title: string;
-  handleClick: () => void;
+  handleClick?: () => void;
   customStyle?: string;
+  disabled?: boolean;
 }
 
 const CustomButton = ({
@@ -15,6 +16,7 @@ const CustomButton = ({
   type,
   handleClick,
   customStyle,
+  disabled,
 }: CustomButtonProps) => {
   const snap = useSnapshot(state);
 
@@ -38,6 +40,7 @@ const CustomButton = ({
       className={`px-2 py-1.5 flex-1 rounded-md ${customStyle}`}
       style={generateStyle(type)}
       onClick={handleClick}
+      disabled={disabled}
     >
       {title}
     </button>
